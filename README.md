@@ -29,5 +29,5 @@ JavaScript: Navegación dinámica entre secciones y control del menú móvil.
 
 Integrantes: Matías Bravo, David Troncoso, Gabriel Zapata. 
 
-Asignatura: Interfaz de Usuario, Ingeniería en Informática (UdeC).
+Asignatura: Interfaz de Usuario, Ingeniería en Informática.
 
