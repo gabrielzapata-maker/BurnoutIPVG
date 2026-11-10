@@ -19,9 +19,9 @@ Autotest: Sección base para la evaluación orientativa.
 
 # Tecnologías Utilizadas
 
-HTML5: Estructura semántica del sitio y componentes navegables. 
+HTML: Estructura semántica del sitio y componentes navegables. 
 
-CSS3: Diseños responsivos y estilos visuales base.
+CSS: Diseños responsivos y estilos visuales base.
 
 JavaScript: Navegación dinámica entre secciones y control del menú móvil.
 
