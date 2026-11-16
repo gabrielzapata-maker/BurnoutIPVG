@@ -4,77 +4,195 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mental Health Burnout · Facultad de Psicología UdeC</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="estilo.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
-  <header>
-    <div class="wrap bar">
-      <a class="logo" href="#" data-pagina="inicio">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round">
-          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
-          <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
-        </svg>
-        Mental Health Burnout
-      </a>
+  <header class="sticky-top bg-white border-bottom">
+    <nav class="navbar navbar-expand-lg navbar-light py-2">
+      <div class="container">
+        <a class="navbar-brand logo d-flex align-items-center gap-2" href="#" data-pagina="inicio">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0d8a52" stroke-width="2" stroke-linecap="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+          <span>Mental Health Burnout</span>
+        </a>
 
-      <button id="burger" aria-label="Abrir menú">☰ Menú</button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavbar" aria-controls="menuNavbar" aria-expanded="false" aria-label="Abrir menú">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <nav id="menu">
-        <ul>
-          <li><a href="#" class="nav-link" data-pagina="inicio">Inicio</a></li>
-          <li><a href="#" class="nav-link" data-pagina="que-es">¿Qué es?</a></li>
-          <li><a href="#" class="nav-link" data-pagina="manual">Manual de cuidado</a></li>
-          <li><a href="#" class="nav-link" data-pagina="proyecto">Sobre el proyecto</a></li>
-          <li><a href="#" class="nav-link cta" data-pagina="test">Hacer autotest</a></li>
-        </ul>
-      </nav>
-    </div>
+        <div class="collapse navbar-collapse justify-content-end" id="menuNavbar">
+          <ul class="navbar-nav align-items-lg-center gap-lg-3 mt-2 mt-lg-0">
+            <li class="nav-item"><a href="#" class="nav-link active" data-pagina="inicio">Inicio</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-pagina="que-es">¿Qué es?</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-pagina="manual">Manual de cuidado</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-pagina="proyecto">Sobre el proyecto</a></li>
+            <li class="nav-item ms-lg-2">
+              <a href="#" class="btn btn-brand w-100" data-pagina="test">Hacer autotest</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
   </header>
 
-  <main id="contenido">
+  <main id="contenido" class="flex-grow-1 py-5">
 
-    <section id="inicio" class="pagina">
-      <div class="wrap">
-        <h1>¿Cansancio normal o burnout? Aprende a distinguirlo.</h1>
-        <p class="lead">Conoce qué es el burnout, en qué se diferencia del estrés común y haz un autotest breve y orientativo, con recursos de ayuda según tu resultado. Es gratuito y sin registro.</p>
-        <p></p>
+    <!-- INICIO -->
+    <section id="inicio" class="pagina container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <span class="badge bg-success-subtle text-success mb-2 px-3 py-2 rounded-pill">Orientación y Prevención · UdeC</span>
+          <h1 class="display-5 fw-bold mb-3">¿Cansancio normal o burnout? Aprende a distinguirlo.</h1>
+          <p class="lead text-muted mb-4">Conoce qué es el burnout, en qué se diferencia del estrés común y haz un autotest breve y orientativo, con recursos de ayuda según tu resultado. Es gratuito y sin registro.</p>
+          <div class="d-flex flex-wrap gap-3">
+            <button class="btn btn-brand btn-lg px-4" data-pagina="test">Comenzar Autotest</button>
+            <button class="btn btn-outline-secondary btn-lg px-4" data-pagina="que-es">Conocer síntomas</button>
+          </div>
+          <div id="historial-banner" class="alert alert-info mt-4 d-none" role="alert"></div>
+        </div>
+        <div class="col-lg-5">
+          <div class="card border-0 shadow-sm bg-light p-4 rounded-4">
+            <h5 class="fw-bold text-success mb-3">3 señales de alerta temprana</h5>
+            <ul class="list-group list-group-flush bg-transparent">
+              <li class="list-group-item bg-transparent px-0"><strong>1. Agotamiento persistente:</strong> El descanso de fin de semana ya no basta para recuperar energía.</li>
+              <li class="list-group-item bg-transparent px-0"><strong>2. Despersonalización:</strong> Sensación de desconexión emocional o irritabilidad constante.</li>
+              <li class="list-group-item bg-transparent px-0"><strong>3. Baja realización:</strong> Sentimiento de ineficacia frente a las exigencias diarias.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="que-es" class="pagina d-none">
-      <div class="wrap">
-        <h1>¿Qué es?</h1>
-        <p>Contenido sobre el síndrome de Burnout</p>
-      </div>
-    </section>
-    <section id="manual" class="pagina d-none">
-      <div class="wrap">
-        <h1>Manual de cuidado</h1>
-        <p>Contenido sobre el manual de cuidado</p>
+    <!-- ¿QUÉ ES? -->
+    <section id="que-es" class="pagina container d-none">
+      <h1 class="fw-bold mb-3">¿Qué es el Síndrome de Burnout?</h1>
+      <p class="text-muted mb-4">Reconocido por la OMS como un fenómeno ocupacional y altamente prevalente en contextos universitarios exigentes, resulta del estrés crónico no gestionado.</p>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm border-light">
+            <div class="card-body">
+              <h5 class="card-title text-success fw-bold">Estrés Común</h5>
+              <p class="card-text text-muted">Se caracteriza por hiperactividad y urgencia. Suele disminuir una vez que pasa el examen, entrega o carga puntual.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm border-light">
+            <div class="card-body">
+              <h5 class="card-title text-success fw-bold">Síndrome de Burnout</h5>
+              <p class="card-text text-muted">Se caracteriza por el vacío emocional, la apatía y la sensación de "estar quemado". No desaparece solo con dormir más.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm border-light">
+            <div class="card-body">
+              <h5 class="card-title text-success fw-bold">¿Por qué prevenirlo?</h5>
+              <p class="card-text text-muted">Detectar los síntomas a tiempo permite ajustar hábitos de estudio/trabajo y buscar acompañamiento profesional oportuno.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="proyecto" class="pagina d-none">
-      <div class="wrap">
-        <h1>Sobre el proyecto</h1>
-        <p>Información del proyecto</p>
+    <!-- MANUAL DE CUIDADO -->
+    <section id="manual" class="pagina container d-none">
+      <div class="mb-4">
+        <h1 class="fw-bold mb-2">Manual de Autocuidado</h1>
+        <p class="text-muted mb-0">Estrategias prácticas recomendadas para proteger tu bienestar mental.</p>
+      </div>
+      <div id="contenedor-manual" class="row g-4"></div>
+    </section>
+
+    <!-- SOBRE EL PROYECTO -->
+    <section id="proyecto" class="pagina container d-none">
+      <div class="row g-5">
+        <div class="col-lg-6">
+          <h1 class="fw-bold mb-3">Sobre el proyecto</h1>
+          <p class="text-muted">Plataforma desarrollada en colaboración con la <strong>Facultad de Psicología de la Universidad de Concepción (UdeC)</strong> por estudiantes de Ingeniería en Informática.</p>
+          <p class="text-muted"><strong>Nota ética:</strong> El autotest disponible en este sitio tiene fines estrictamente educativos y orientativos; no constituye un diagnóstico clínico.</p>
+        </div>
+        <div class="col-lg-6">
+          <div class="card shadow-sm p-4">
+            <h4 class="fw-bold mb-3">Solicitar orientación o dejar consulta</h4>
+            <form id="form-contacto" novalidate>
+              <div class="mb-3">
+                <label for="nombreContacto" class="form-label">Nombre o Alias *</label>
+                <input type="text" class="form-control" id="nombreContacto" required minlength="2">
+                <div class="invalid-feedback">Por favor ingresa tu nombre (mínimo 2 caracteres).</div>
+              </div>
+              <div class="mb-3">
+                <label for="correoContacto" class="form-label">Correo institucional o personal *</label>
+                <input type="email" class="form-control" id="correoContacto" placeholder="ejemplo@virginiogomez.cl" required>
+                <div class="invalid-feedback">Ingresa un correo electrónico válido.</div>
+              </div>
+              <div class="mb-3">
+                <label for="mensajeContacto" class="form-label">Consulta *</label>
+                <textarea class="form-control" id="mensajeContacto" rows="3" required minlength="10"></textarea>
+                <div class="invalid-feedback">Cuéntanos brevemente tu duda (mínimo 10 caracteres).</div>
+              </div>
+              <button type="submit" class="btn btn-brand w-100">Enviar consulta</button>
+              <div id="alerta-contacto" class="alert alert-success mt-3 d-none">¡Mensaje enviado correctamente! Nos pondremos en contacto pronto.</div>
+            </form>
+          </div>
+        </div>
       </div>
     </section>
-    <section id="test" class="pagina d-none">
-      <div class="wrap">
-        <h1>Hacer autotest</h1>
-        <p>Formulario de autoevaluación</p>
+
+    <!-- HACER AUTOTEST -->
+    <section id="test" class="pagina container d-none">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <h1 class="fw-bold mb-2">Autotest Orientativo de Burnout</h1>
+          <p class="text-muted mb-4">Responde con sinceridad según cómo te has sentido durante las <strong>últimas 2 semanas</strong>.</p>
+
+          <form id="form-test" novalidate>
+            <div id="contenedor-preguntas"></div>
+
+            <div id="error-test" class="alert alert-danger d-none mt-3" role="alert">
+              Por favor responde todas las preguntas antes de calcular tu resultado.
+            </div>
+
+            <div class="d-flex gap-3 mt-4">
+              <button type="submit" class="btn btn-brand btn-lg px-4">Ver mi resultado</button>
+              <button type="reset" class="btn btn-outline-secondary btn-lg">Limpiar</button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
+
   </main>
-  <footer>
-    <div class="wrap footer-content">
-      <p><strong>Mental Health Burnout</strong> · Equipo Síndrome · Interfaz de Usuario, Ingeniería en Informática · Versión 1.0</p>
-      <p></p>
-      <p>Matias Bravo · David Troncoso · Gabriel Zapata · Cliente: Facultad de Psicología UdeC · 
+
+  <!-- MODAL DE RESULTADOS -->
+  <div class="modal fade" id="modalResultado" tabindex="-1" aria-labelledby="modalResultadoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold" id="modalResultadoLabel">Resultado de tu Autotest</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body" id="cuerpo-modal-resultado"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-brand" data-bs-dismiss="modal" data-pagina="manual">Ir al Manual de Cuidado</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="border-top py-4 bg-white mt-auto">
+    <div class="container footer-content">
+      <p class="mb-1"><strong>Mental Health Burnout</strong> · Equipo Síndrome · Interfaz de Usuario, Ingeniería en Informática · Versión 2.0</p>
+      <p class="mb-0">Matías Bravo · David Troncoso · Gabriel Zapata · Cliente: Facultad de Psicología UdeC</p>
     </div>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="estilos.js"></script>
 </body>
 </html>
