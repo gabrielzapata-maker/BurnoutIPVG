@@ -12,26 +12,22 @@
   <header class="sticky-top bg-white border-bottom">
     <nav class="navbar navbar-expand-lg navbar-light py-2">
       <div class="container">
-        <a class="navbar-brand logo d-flex align-items-center gap-2" href="#" data-pagina="inicio">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0d8a52" stroke-width="2" stroke-linecap="round">
-            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
-            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
-          </svg>
+        <a class="navbar-brand logo text-decoration-none" href="#" data-pagina="inicio">
           <span>Mental Health Burnout</span>
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavbar" aria-controls="menuNavbar" aria-expanded="false" aria-label="Abrir menú">
-          <span class="navbar-toggler-icon"></span>
+        <button class="d-lg-none border-0 bg-transparent p-0 text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavbar" aria-controls="menuNavbar" aria-expanded="false" aria-label="Abrir menú">
+          Menú
         </button>
 
         <div class="collapse navbar-collapse justify-content-end" id="menuNavbar">
-          <ul class="navbar-nav align-items-lg-center gap-lg-3 mt-2 mt-lg-0">
-            <li class="nav-item"><a href="#" class="nav-link active" data-pagina="inicio">Inicio</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-pagina="que-es">¿Qué es?</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-pagina="manual">Manual de cuidado</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-pagina="proyecto">Sobre el proyecto</a></li>
+          <ul class="navbar-nav align-items-lg-center gap-lg-4 mt-2 mt-lg-0">
+            <li class="nav-item"><a href="#" class="text-decoration-none text-dark active" data-pagina="inicio">Inicio</a></li>
+            <li class="nav-item"><a href="#" class="text-decoration-none text-dark" data-pagina="que-es">¿Qué es?</a></li>
+            <li class="nav-item"><a href="#" class="text-decoration-none text-dark" data-pagina="manual">Manual de cuidado</a></li>
+            <li class="nav-item"><a href="#" class="text-decoration-none text-dark" data-pagina="proyecto">Sobre el proyecto</a></li>
             <li class="nav-item ms-lg-2">
-              <a href="#" class="btn btn-brand w-100" data-pagina="test">Hacer autotest</a>
+              <a href="#" class="text-decoration-none fw-bold text-success" data-pagina="test">Hacer autotest</a>
             </li>
           </ul>
         </div>
@@ -48,9 +44,9 @@
           <span class="badge bg-success-subtle text-success mb-2 px-3 py-2 rounded-pill">Orientación y Prevención · UdeC</span>
           <h1 class="display-5 fw-bold mb-3">¿Padeces de Cansancio normal o Burnout? Aprende a distinguirlo.</h1>
           <p class="lead text-muted mb-4">Conoce qué es el burnout, en qué se diferencia del estrés común y haz un autotest breve y orientativo, con recursos de ayuda según tu resultado. Es gratuito y sin registro.</p>
-          <div class="d-flex flex-wrap gap-3">
-            <button class="btn btn-brand btn-lg px-4" data-pagina="test">Comenzar Autotest</button>
-            <button class="btn btn-outline-secondary btn-lg px-4" data-pagina="que-es">Conocer síntomas</button>
+          <div class="d-flex flex-wrap gap-4">
+            <button type="button" class="border-0 bg-transparent p-0 fs-5 fw-bold text-success text-decoration-underline" data-pagina="test">Comenzar Autotest</button>
+            <button type="button" class="border-0 bg-transparent p-0 fs-5 text-secondary text-decoration-underline" data-pagina="que-es">Conocer síntomas</button>
           </div>
           <div id="historial-banner" class="alert alert-info mt-4 d-none" role="alert"></div>
         </div>
@@ -135,7 +131,7 @@
                 <textarea class="form-control" id="mensajeContacto" rows="3" required minlength="10"></textarea>
                 <div class="invalid-feedback">Cuéntanos brevemente tu duda (mínimo 10 caracteres).</div>
               </div>
-              <button type="submit" class="btn btn-brand w-100">Enviar consulta</button>
+              <button type="submit" class="border-0 bg-transparent p-0 fw-bold text-success text-decoration-underline">Enviar consulta</button>
               <div id="alerta-contacto" class="alert alert-success mt-3 d-none">¡Mensaje enviado correctamente! Nos pondremos en contacto pronto.</div>
             </form>
           </div>
@@ -157,9 +153,9 @@
               Por favor responde todas las preguntas antes de calcular tu resultado.
             </div>
 
-            <div class="d-flex gap-3 mt-4">
-              <button type="submit" class="btn btn-brand btn-lg px-4">Ver mi resultado</button>
-              <button type="reset" class="btn btn-outline-secondary btn-lg">Limpiar</button>
+            <div class="d-flex gap-4 mt-4">
+              <button type="submit" class="border-0 bg-transparent p-0 fs-5 fw-bold text-success text-decoration-underline">Ver mi resultado</button>
+              <button type="reset" class="border-0 bg-transparent p-0 fs-5 text-secondary text-decoration-underline">Limpiar</button>
             </div>
           </form>
         </div>
@@ -174,12 +170,12 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title fw-bold" id="modalResultadoLabel">Resultado de tu Autotest</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          <button type="button" class="border-0 bg-transparent p-0 fw-bold text-secondary" data-bs-dismiss="modal" aria-label="Cerrar">✕</button>
         </div>
         <div class="modal-body" id="cuerpo-modal-resultado"></div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-brand" data-bs-dismiss="modal" data-pagina="manual">Ir al Manual de Cuidado</button>
+        <div class="modal-footer gap-3">
+          <button type="button" class="border-0 bg-transparent p-0 text-secondary text-decoration-underline" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="border-0 bg-transparent p-0 fw-bold text-success text-decoration-underline" data-bs-dismiss="modal" data-pagina="manual">Ir al Manual de Cuidado</button>
         </div>
       </div>
     </div>
