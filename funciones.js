@@ -1,249 +1,151 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const paginas = document.querySelectorAll('.pagina');
-    const enlacesNavegacion = document.querySelectorAll('[data-pagina]');
-    const burgerBtn = document.getElementById('burger');
-    const menuNav = document.getElementById('menu');
+"use strict";
 
-    const contenedorPreguntas = document.getElementById('contenedor-preguntas');
-    const formTest = document.getElementById('form-test');
-    const errorTest = document.getElementById('error-test');
-    const cuerpoModalResultado = document.getElementById('cuerpo-modal-resultado');
-    const contenedorManual = document.getElementById('contenedor-manual');
-    const historialBanner = document.getElementById('historial-banner');
-    const formContacto = document.getElementById('form-contacto');
-    const alertaContacto = document.getElementById('alerta-contacto');
+const CLAVE = "burnout_ultimo_nivel";               // localStorage: solo el último nivel (sin respuestas ni datos personales)
+const OPCIONES = ["Nunca", "A veces", "Frecuentemente", "Siempre"]; // valen 0, 1, 2, 3
+const TEXTOS = {                                    // editable: mensaje por nivel
+  Bajo: "Tus respuestas sugieren pocas señales de burnout. Sigue cuidando tus descansos y hábitos.",
+  Medio: "Hay señales de desgaste. Es buen momento para frenar un poco y buscar apoyo.",
+  Alto: "Tus respuestas muestran varias señales importantes. Te recomendamos conversar pronto con un profesional."
+};
+let datos = null;                                   // se llena con fetch("datos.json")
+const $ = (id) => document.getElementById(id);
 
-    const opcionesEscala = [
-        { valor: 0, texto: 'Nunca' },
-        { valor: 1, texto: 'A veces' },
-        { valor: 2, texto: 'A menudo' },
-        { valor: 3, texto: 'Casi siempre' }
-    ];
 
-    let preguntasCargadas = [];
-
-    function navegarA(paginaTarget) {
-        if (!paginaTarget) return;
-
-        paginas.forEach(sec => {
-            if (sec.id === paginaTarget) {
-                sec.classList.remove('d-none');
-            } else {
-                sec.classList.add('d-none');
-            }
-        });
-
-        if (menuNav && menuNav.classList.contains('open')) {
-            menuNav.classList.remove('open');
-        }
-
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-
-    enlacesNavegacion.forEach(enlace => {
-        enlace.addEventListener('click', (e) => {
-            const target = enlace.getAttribute('data-pagina');
-            if (!target) return;
-
-            if (enlace.tagName === 'A') {
-                e.preventDefault();
-            }
-
-            navegarA(target);
-        });
-    });
-
-    if (burgerBtn && menuNav) {
-        burgerBtn.addEventListener('click', () => {
-            menuNav.classList.toggle('open');
-        });
-    }
-
-    function renderizarPreguntas(preguntas) {
-        if (!contenedorPreguntas) return;
-        contenedorPreguntas.innerHTML = '';
-
-        preguntas.forEach((p, index) => {
-            const card = document.createElement('div');
-            card.className = 'card mb-3 shadow-sm card-pregunta';
-
-            const radiosHtml = opcionesEscala.map(op => {
-                const inputId = `p${p.id}_op${op.valor}`;
-                return `
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="pregunta_${p.id}" id="${inputId}" value="${op.valor}">
-                        <label class="form-check-label" for="${inputId}">${op.texto}</label>
-                    </div>
-                `;
-            }).join('');
-
-            card.innerHTML = `
-                <div class="card-body">
-                    <span class="badge bg-light text-success border mb-2">${p.dimension}</span>
-                    <p class="fw-semibold mb-3">${index + 1}. ${p.texto}</p>
-                    <div class="d-flex flex-wrap gap-3">
-                        ${radiosHtml}
-                    </div>
-                </div>
-            `;
-
-            contenedorPreguntas.appendChild(card);
-        });
-    }
-
-    function renderizarManual(itemsManual) {
-        if (!contenedorManual || !Array.isArray(itemsManual)) return;
-        contenedorManual.innerHTML = '';
-
-        itemsManual.forEach(item => {
-            const col = document.createElement('div');
-            col.className = 'col-md-6';
-            col.innerHTML = `
-                <div class="card h-100 shadow-sm border-light">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
-                            <h5 class="card-title text-success fw-bold mb-0">${item.titulo}</h5>
-                            <span class="badge bg-success-subtle text-success">${item.badge}</span>
-                        </div>
-                        <p class="small text-muted mb-2">Categoría: ${item.categoria}</p>
-                        <p class="card-text text-muted mb-0">${item.descripcion}</p>
-                    </div>
-                </div>
-            `;
-            contenedorManual.appendChild(col);
-        });
-    }
-
-    function mostrarHistorial() {
-        if (!historialBanner) return;
-        const guardado = localStorage.getItem('ultimoResultadoBurnout');
-        if (!guardado) return;
-
-        try {
-            const data = JSON.parse(guardado);
-            historialBanner.classList.remove('d-none');
-            historialBanner.innerHTML = `Último autotest orientativo: <strong>${data.nivel}</strong> (${data.puntaje}/${data.maximo} pts).`;
-        } catch (err) {
-            localStorage.removeItem('ultimoResultadoBurnout');
-        }
-    }
-
-    if (formTest) {
-        formTest.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            if (!preguntasCargadas.length) return;
-
-            let puntajeTotal = 0;
-            let todasRespondidas = true;
-            const puntajePorDimension = {};
-
-            preguntasCargadas.forEach(p => {
-                const seleccionada = formTest.querySelector(`input[name="pregunta_${p.id}"]:checked`);
-                if (!seleccionada) {
-                    todasRespondidas = false;
-                    return;
-                }
-                const valor = Number(seleccionada.value);
-                puntajeTotal += valor;
-                puntajePorDimension[p.dimension] = (puntajePorDimension[p.dimension] || 0) + valor;
-            });
-
-            if (!todasRespondidas) {
-                if (errorTest) errorTest.classList.remove('d-none');
-                return;
-            }
-
-            if (errorTest) errorTest.classList.add('d-none');
-
-            const puntajeMaximo = preguntasCargadas.length * 3; // 45 pts máx con 15 preguntas (0 a 3)
-            let nivel = '';
-            let mensaje = '';
-            let badgeClase = '';
-
-            if (puntajeTotal <= 15) {
-                nivel = 'Señales leves o cansancio habitual';
-                badgeClase = 'bg-success';
-                mensaje = 'Tus respuestas sugieren un nivel bajo de indicadores asociados a burnout en las últimas 2 semanas. Mantén tus hábitos de descanso y prevención.';
-            } else if (puntajeTotal <= 30) {
-                nivel = 'Nivel moderado / Alerta preventiva';
-                badgeClase = 'bg-warning text-dark';
-                mensaje = 'Se observan señales moderadas que conviene atender a tiempo. Revisar tus pausas, límites digitales y organización puede ayudarte a evitar que aumenten.';
-            } else {
-                nivel = 'Nivel alto de señales orientativas';
-                badgeClase = 'bg-danger';
-                mensaje = 'Tus respuestas reflejan una alta frecuencia de síntomas asociados a desgaste y burnout. Te recomendamos revisar el Manual de Cuidado y conversar con apoyo o un profesional.';
-            }
-
-            const detalleDimensionesHtml = Object.entries(puntajePorDimension)
-                .map(([dim, pts]) => `<li class="list-group-item d-flex justify-content-between px-0"><span>${dim}</span><strong>${pts} pts</strong></li>`)
-                .join('');
-
-            if (cuerpoModalResultado) {
-                cuerpoModalResultado.innerHTML = `
-                    <div class="mb-3">
-                        <span class="badge ${badgeClase} mb-2">${nivel}</span>
-                        <h4 class="fw-bold mb-1">Puntaje: ${puntajeTotal} / ${puntajeMaximo}</h4>
-                        <p class="text-muted mb-0">${mensaje}</p>
-                    </div>
-                    <ul class="list-group list-group-flush mb-3">
-                        ${detalleDimensionesHtml}
-                    </ul>
-                    <p class="small text-muted mb-0"><strong>Nota orientativa:</strong> Este autotest es educativo y orientativo; no equivale a un diagnóstico clínico.</p>
-                `;
-            }
-
-            localStorage.setItem('ultimoResultadoBurnout', JSON.stringify({
-                nivel,
-                puntaje: puntajeTotal,
-                maximo: puntajeMaximo
-            }));
-            mostrarHistorial();
-
-            const modalEl = document.getElementById('modalResultado');
-            if (modalEl && window.bootstrap) {
-                const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl);
-                modalInstance.show();
-            }
-        });
-
-        formTest.addEventListener('reset', () => {
-            if (errorTest) errorTest.classList.add('d-none');
-        });
-    }
-
-    if (formContacto) {
-        formContacto.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (!formContacto.checkValidity()) {
-                formContacto.classList.add('was-validated');
-                return;
-            }
-            formContacto.classList.remove('was-validated');
-            formContacto.reset();
-            if (alertaContacto) alertaContacto.classList.remove('d-none');
-        });
-    }
-
-    fetch('datos.json')
-        .then(res => {
-            if (!res.ok) throw new Error('No se pudo cargar datos.json');
-            return res.json();
-        })
-        .then(data => {
-            preguntasCargadas = Array.isArray(data.preguntasTest) ? data.preguntasTest : [];
-            renderizarPreguntas(preguntasCargadas);
-            renderizarManual(data.manualCuidado);
-        })
-        .catch(err => {
-            console.error(err);
-            if (contenedorPreguntas) {
-                contenedorPreguntas.innerHTML = '<div class="alert alert-warning">No se pudieron cargar las preguntas desde <code>datos.json</code>. Si abres el archivo directo desde el disco, usa un servidor local (como Live Server).</div>';
-            }
-        });
-
-    mostrarHistorial();
+function mostrarPagina(id) {
+  document.querySelectorAll(".pagina").forEach((s) => s.classList.toggle("d-none", s.id !== id));
+  document.querySelectorAll(".navbar .nav-link, .navbar .btn").forEach((a) => {
+    const activo = a.dataset.pagina === id;
+    a.classList.toggle("active", activo);
+    activo ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current");
+  });
+  if (id === "test") reiniciarTest();
+  const menu = $("menu");
+  if (menu.classList.contains("show")) bootstrap.Collapse.getOrCreateInstance(menu).hide();
+  window.scrollTo(0, 0);
+}
+document.addEventListener("click", (e) => {
+  const destino = e.target.closest("[data-pagina]");
+  if (destino) { e.preventDefault(); mostrarPagina(destino.dataset.pagina); }
 });
+
+
+async function cargarDatos() {
+  try {
+    const respuesta = await fetch("datos.json");
+    if (!respuesta.ok) throw new Error("HTTP " + respuesta.status);
+    datos = await respuesta.json();
+    crearFormulario();
+    const guardado = leerGuardado();
+    if (guardado) mostrarResultado(guardado);       // al recargar, muestra el último resultado
+  } catch (error) {
+    console.error("No se pudo cargar datos.json:", error);
+    $("aviso-carga").classList.remove("d-none");
+  }
+}
+
+
+function crearFormulario() {
+  $("preguntas").innerHTML = datos.preguntas.map((texto, i) => `
+    <fieldset class="card card-body" id="p${i}">
+      <legend class="fs-6 fw-semibold">${i + 1}. ${texto}</legend>
+      <div class="row row-cols-2 row-cols-md-4 g-2">
+        ${OPCIONES.map((op, v) => `
+          <div class="col">
+            <input class="btn-check" type="radio" name="p${i}" id="p${i}o${v}" value="${v}" required>
+            <label class="btn btn-outline-success w-100" for="p${i}o${v}">${op}</label>
+          </div>`).join("")}
+      </div>
+      <p class="d-none fw-semibold mt-2 mb-0" id="f${i}">Falta responder esta pregunta.</p>
+    </fieldset>`).join("");
+}
+
+
+function marcarFalta(i, falta) {
+  $("p" + i).classList.toggle("border-dark", falta);
+  $("p" + i).classList.toggle("border-3", falta);
+  $("f" + i).classList.toggle("d-none", !falta);
+}
+
+function reiniciarTest() {
+  $("test-intro").classList.remove("d-none");
+  $("form-test").classList.add("d-none");
+  $("form-test").reset();
+  $("aviso-faltan").classList.add("d-none");
+  if (datos) datos.preguntas.forEach((_, i) => marcarFalta(i, false));
+  actualizarProgreso();
+}
+
+function actualizarProgreso() {
+  const total = datos ? datos.preguntas.length : 15;
+  const hechas = $("form-test").querySelectorAll("input:checked").length;
+  $("barra").style.width = (hechas / total) * 100 + "%";
+  $("barra").parentElement.setAttribute("aria-valuenow", hechas);
+}
+
+$("btn-comenzar").addEventListener("click", () => {
+  if (!datos) return;
+  $("test-intro").classList.add("d-none");
+  $("form-test").classList.remove("d-none");
+  window.scrollTo(0, 0);
+});
+$("form-test").addEventListener("change", actualizarProgreso);
+
+
+$("form-test").addEventListener("submit", (e) => {
+  e.preventDefault();
+  let puntaje = 0, primera = null;
+  datos.preguntas.forEach((_, i) => {
+    const marcada = $("form-test").querySelector(`input[name="p${i}"]:checked`);
+    marcarFalta(i, !marcada);
+    if (marcada) puntaje += Number(marcada.value);
+    else if (!primera) primera = i;
+  });
+  $("aviso-faltan").classList.toggle("d-none", primera === null);
+  if (primera !== null) {                           // RF-08: avisar si falta una respuesta
+    $("p" + primera).scrollIntoView({ block: "center" });
+    $("p" + primera).querySelector("input").focus();
+    return;
+  }
+  const nivel = puntaje <= 15 ? "Bajo" : puntaje <= 30 ? "Medio" : "Alto"; // máx. 45 puntos
+  try { localStorage.setItem(CLAVE, JSON.stringify({ nivel })); } catch (err) { console.warn(err); }
+  mostrarResultado({ nivel });
+});
+
+
+function enlaceContacto(c) {
+  if (c.includes("@")) return `<a href="mailto:${c}">${c}</a>`;
+  if (/^[+*\d]/.test(c)) return `<a href="tel:${c.replace(/\s/g, "")}">${c}</a>`;
+  return `<a href="https://${c}" target="_blank" rel="noopener">${c}</a>`;
+}
+
+function mostrarResultado(r) {
+  $("nivel").textContent = r.nivel;
+  $("nivel-texto").textContent = TEXTOS[r.nivel];
+  $("nivel-fecha").textContent = "Este nivel queda guardado solo en tu navegador (no tus respuestas). Puedes borrarlo cuando quieras.";
+  // OBJ-04: recursos acordes al nivel (cada recurso lista sus niveles); si hubiera menos de 3, se completan
+  const acordes = datos.recursos.filter((x) => x.nivel.includes(r.nivel)).sort((a, b) => a.nivel.length - b.nivel.length);
+  const lista = acordes.length >= 3 ? acordes : [...acordes, ...datos.recursos.filter((x) => !acordes.includes(x))];
+  $("recursos").innerHTML = lista.map((rec) => `
+    <div class="col"><article class="card h-100"><div class="card-body">
+      <h3 class="h5 card-title">${rec.nombre}</h3>
+      <p class="card-text text-body-secondary mb-1">${rec.tipo} · ${rec.horario}</p>
+      <p class="card-text mb-0"><strong>Contacto:</strong> ${enlaceContacto(rec.contacto)}</p>
+    </div></article></div>`).join("");
+  mostrarPagina("resultados");
+}
+
+function leerGuardado() {
+  try {
+    const g = JSON.parse(localStorage.getItem(CLAVE));
+    return g && TEXTOS[g.nivel] ? g : null;
+  } catch (err) { return null; }
+}
+
+$("btn-borrar").addEventListener("click", () => {
+  try { localStorage.removeItem(CLAVE); } catch (err) { console.warn(err); }
+  mostrarPagina("inicio");
+});
+
+
+mostrarPagina("inicio");
+cargarDatos();
