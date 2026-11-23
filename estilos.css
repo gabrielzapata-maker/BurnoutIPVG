@@ -1,59 +1,108 @@
 :root {
-  --bg-color: #ffffff;
-  --text-dark: #1a1a1a;
-  --text-muted: #555555;
-  --brand-green: #0d8a52;
-  --brand-green-hover: #0a6c40;
-  --line-color: #e5e5e5;
+  --verde: #3F7468;          /* color principal */
+  --verde-oscuro: #2B5249;
+  --verde-suave: #E3EEEA;
+  --crema: #F6F4EE;          /* fondo */
+  --tinta: #24343B;          /* texto */
+  --linea: #D5DBD5;
+
+
+  --bs-success: var(--verde);
+  --bs-success-rgb: 63, 116, 104;
+  --bs-success-bg-subtle: var(--verde-suave);
+  --bs-success-border-subtle: #C3DAD3;
+  --bs-success-text-emphasis: var(--verde-oscuro);
+  --bs-body-bg: var(--crema);
+  --bs-tertiary-bg: var(--crema);
+  --bs-body-color: var(--tinta);
+  --bs-border-color: var(--linea);
+  --bs-link-color: var(--verde);        
+  --bs-link-color-rgb: 63, 116, 104;
+  --bs-link-hover-color: var(--verde-oscuro);
+  --bs-link-hover-color-rgb: 43, 82, 73;
+  --bs-body-font-family: "Inter", system-ui, sans-serif;
+  --bs-body-font-size: 1.125rem;
+  --bs-body-line-height: 1.7;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  color: var(--text-dark);
-  background-color: var(--bg-color);
+h1, h2, h3, h4, h5, .display-3, .display-5, .navbar-brand {
+  font-family: "Nunito", system-ui, sans-serif;
+  font-weight: 800;
+  line-height: 1.2;
 }
 
-.logo {
-  font-weight: 700;
-  font-size: 1.15rem;
-  color: var(--brand-green) !important;
-  text-decoration: none;
+a { font-weight: 600; text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--verde); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
 }
 
-.nav-link {
-  color: var(--text-dark);
-  font-weight: 500;
+
+.navbar { background-color: #fff !important; }
+.navbar .nav-link {
+  border-radius: 2rem;
+  padding: .5rem .9rem;
+  color: var(--tinta);
+}
+.navbar .nav-link.active,
+.navbar .nav-link:hover { background-color: var(--verde-suave); color: var(--tinta); }
+
+
+.btn {
+  border-radius: 2rem;
+  font-weight: 600;
+  padding: .6rem 1.4rem;
+}
+.btn-success {
+  --bs-btn-bg: var(--verde);
+  --bs-btn-border-color: var(--verde);
+  --bs-btn-hover-bg: #325F55;
+  --bs-btn-hover-border-color: #325F55;
+  --bs-btn-active-bg: var(--verde-oscuro);
+  --bs-btn-active-border-color: var(--verde-oscuro);
+  --bs-btn-disabled-bg: var(--verde);
+  --bs-btn-disabled-border-color: var(--verde);
+}
+.btn-outline-success {
+  --bs-btn-color: var(--verde);
+  --bs-btn-border-color: var(--verde);
+  --bs-btn-hover-bg: var(--verde);
+  --bs-btn-hover-border-color: var(--verde);
+  --bs-btn-active-bg: var(--verde);
+  --bs-btn-active-border-color: var(--verde);
+  --bs-btn-disabled-color: var(--verde);
+  --bs-btn-disabled-border-color: var(--verde);
 }
 
-.nav-link:hover,
-.nav-link.active {
-  color: var(--brand-green) !important;
-}
 
-.btn-brand {
-  background-color: var(--brand-green);
-  border-color: var(--brand-green);
-  color: #ffffff;
-  font-weight: 500;
-  border-radius: 8px;
-  transition: background-color 0.2s;
+.card {
+  --bs-card-bg: #fff;
+  --bs-card-border-radius: 1.1rem;
+  --bs-card-inner-border-radius: 1.1rem;
 }
-
-.btn-brand:hover {
-  background-color: var(--brand-green-hover);
-  border-color: var(--brand-green-hover);
-  color: #ffffff;
+.table-success {
+  --bs-table-bg: var(--verde-suave);
+  --bs-table-color: var(--tinta);
+  --bs-table-border-color: #C3DAD3;
 }
-
-.card-pregunta {
-  border-left: 4px solid var(--brand-green);
+.alert-success {
+  --bs-alert-color: var(--verde-oscuro);
+  --bs-alert-bg: var(--verde-suave);
+  --bs-alert-border-color: #C3DAD3;
 }
+.modal-content { border-radius: 1.2rem; }
 
-.footer-content {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
 
-.footer-content strong {
-  color: var(--text-dark);
+#barra { width: 0; }                       /* funciones.js lo va llenando */
+.progress { height: .8rem; border-radius: 1rem; }
+fieldset.card legend { float: none; width: auto; margin-bottom: .75rem; }
+.btn-check:checked + .btn-outline-success { color: #fff; }
+
+
+footer { background-color: #fff !important; }
+
+
+@media (max-width: 400px) {
+  .navbar-brand { font-size: 1rem; margin-right: .25rem; }
 }
