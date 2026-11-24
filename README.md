@@ -5,7 +5,7 @@ Plataforma web informativa, preventiva y de autoevaluación orientativa sobre el
 ## Sitio Web Publicado
 * **URL de producción (GitHub Pages):** https://gabrielzapata-maker.github.io/BurnoutIPVG/
 
-## Funcionalidades Principales (100 % Alcance ERS)
+## Funcionalidades Principales 
 * **Inicio:** Presentación del proyecto, acceso directo al autotest y contexto institucional.
 * **¿Qué es?:** Diferenciación clara entre estrés cotidiano y síndrome de burnout, síntomas principales y enlaces a fuentes científicas confiables (OMS, APA, MINSAL).
 * **Autotest Orientativo:** Formulario dinámico de 15 preguntas cargado desde `datos.json` mediante `fetch`, con validación visual en tiempo real (bordes en rojo ante respuestas faltantes), cálculo de nivel de riesgo (bajo, moderado o alto) y almacenamiento local privado (`localStorage`) únicamente del nivel obtenido.
