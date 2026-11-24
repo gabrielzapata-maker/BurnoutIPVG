@@ -1,55 +1,56 @@
 {
-  "preguntasTest": [
-    {
-      "id": 1,
-      "dimension": "Agotamiento Emocional",
-      "texto": "¿Con qué frecuencia te sientes emocionalmente agotado/a por tus estudios o trabajo?"
-    },
-    {
-      "id": 2,
-      "dimension": "Agotamiento Emocional",
-      "texto": "¿Te sientes cansado/a incluso antes de empezar tu jornada académica o laboral?"
-    },
-    {
-      "id": 3,
-      "dimension": "Despersonalización",
-      "texto": "¿Has notado que te vuelves más indiferente, cínico/a o distante con tus compañeros o tareas?"
-    },
-    {
-      "id": 4,
-      "dimension": "Realización Personal",
-      "texto": "¿Sientes que, por más que te esfuerces, no logras resultados satisfactorios en tus actividades?"
-    },
-    {
-      "id": 5,
-      "dimension": "Agotamiento Físico",
-      "texto": "¿Presentas problemas para dormir, dolores de cabeza o tensión muscular asociados a tus responsabilidades?"
-    }
+  "preguntas": [
+    "¿Con qué frecuencia te sientes emocionalmente agotado/a por tus estudios o trabajo?",
+    "¿Te sientes cansado/a incluso antes de empezar tu jornada académica o laboral?",
+    "¿Sientes que dormir o descansar el fin de semana ya no te recupera?",
+    "¿Te cuesta concentrarte o retener información cuando estudias o preparas clases?",
+    "¿Presentas dolores de cabeza, tensión muscular o problemas para dormir por tus responsabilidades?",
+    "¿Has notado que te vuelves más indiferente, cínico/a o distante con tus compañeros o tareas?",
+    "¿Sientes ganas de postergar o evitar actividades académicas que antes hacías sin problema?",
+    "¿Te irritas con facilidad ante preguntas, plazos o imprevistos cotidianos?",
+    "¿Sientes que estás cumpliendo con tus obligaciones solo por inercia?",
+    "¿Has reducido el contacto con amigos, familia o compañeros por falta de energía?",
+    "¿Sientes que, por más que te esfuerces, no logras resultados satisfactorios en tus actividades?",
+    "¿Dudas de tus capacidades para sacar adelante el semestre o tus metas laborales?",
+    "¿Sientes una sensación constante de vacío o de no poder más?",
+    "¿Has perdido el interés o entusiasmo por tu carrera o labor docente?",
+    "¿Sientes que tus esfuerzos académicos o laborales no tienen sentido ni impacto?"
   ],
-  "manualCuidado": [
+  "recursos": [
     {
-      "titulo": "Higiene del Sueño",
-      "categoria": "Descanso",
-      "descripcion": "Evita pantallas 45 minutos antes de dormir y mantén horarios regulares para permitir la recuperación cognitiva.",
-      "badge": "Esencial"
+      "nombre": "Fono Ayuda Prevención",
+      "tipo": "Telefónica",
+      "horario": "24/7",
+      "contacto": "*4141",
+      "nivel": ["Alto"]
     },
     {
-      "titulo": "Técnica Pomodoro Adaptada",
-      "categoria": "Organización",
-      "descripcion": "Trabaja o estudia en bloques de 25 a 40 minutos con pausas activas de 5 a 10 minutos lejos del escritorio.",
-      "badge": "Productividad Sana"
+      "nombre": "Clínica Psicológica UdeC",
+      "tipo": "Presencial",
+      "horario": "Lun a Vie, 09:00 - 13:00",
+      "contacto": "cpsi@udec.cl",
+      "nivel": ["Alto"]
     },
     {
-      "titulo": "Desconexión Digital",
-      "categoria": "Límites",
-      "descripcion": "Silencia notificaciones de grupos académicos o laborales fuera de tu horario definido de estudio/trabajo.",
-      "badge": "Prevención"
+      "nombre": "Salud Estudiantil UdeC",
+      "tipo": "Presencial",
+      "horario": "Lun a Vie, 09:00 - 17:00",
+      "contacto": "+56 41 220 4223",
+      "nivel": ["Medio", "Alto"]
     },
     {
-      "titulo": "Red de Apoyo UdeC",
-      "categoria": "Orientación",
-      "descripcion": "Conversar con pares o acudir a los dispositivos de salud estudiantil ayuda a detectar señales tempranas.",
-      "badge": "Comunidad"
+      "nombre": "Taller de Manejo del Estrés",
+      "tipo": "Presencial",
+      "horario": "Jueves 15:00 hrs",
+      "contacto": "bienestar@udec.cl",
+      "nivel": ["Medio"]
+    },
+    {
+      "nombre": "Guía de Hábitos Saludables",
+      "tipo": "Web",
+      "horario": "Siempre disponible",
+      "contacto": "www.udec.cl/autocuidado",
+      "nivel": ["Bajo", "Medio"]
     }
   ]
 }
