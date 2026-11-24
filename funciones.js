@@ -10,7 +10,6 @@ const TEXTOS = {                                    // editable: mensaje por niv
 let datos = null;                                   // se llena con fetch("datos.json")
 const $ = (id) => document.getElementById(id);
 
-
 function mostrarPagina(id) {
   document.querySelectorAll(".pagina").forEach((s) => s.classList.toggle("d-none", s.id !== id));
   document.querySelectorAll(".navbar .nav-link, .navbar .btn").forEach((a) => {
@@ -23,11 +22,11 @@ function mostrarPagina(id) {
   if (menu.classList.contains("show")) bootstrap.Collapse.getOrCreateInstance(menu).hide();
   window.scrollTo(0, 0);
 }
+
 document.addEventListener("click", (e) => {
   const destino = e.target.closest("[data-pagina]");
   if (destino) { e.preventDefault(); mostrarPagina(destino.dataset.pagina); }
 });
-
 
 async function cargarDatos() {
   try {
@@ -42,7 +41,6 @@ async function cargarDatos() {
     $("aviso-carga").classList.remove("d-none");
   }
 }
-
 
 function crearFormulario() {
   $("preguntas").innerHTML = datos.preguntas.map((texto, i) => `
@@ -59,10 +57,10 @@ function crearFormulario() {
     </fieldset>`).join("");
 }
 
-
 function marcarFalta(i, falta) {
-  $("p" + i).classList.toggle("border-dark", falta);
+  $("p" + i).classList.toggle("border-danger", falta);
   $("p" + i).classList.toggle("border-3", falta);
+  $("f" + i).classList.toggle("text-danger", falta);
   $("f" + i).classList.toggle("d-none", !falta);
 }
 
@@ -90,7 +88,6 @@ $("btn-comenzar").addEventListener("click", () => {
 });
 $("form-test").addEventListener("change", actualizarProgreso);
 
-
 $("form-test").addEventListener("submit", (e) => {
   e.preventDefault();
   let puntaje = 0, primera = null;
@@ -98,7 +95,7 @@ $("form-test").addEventListener("submit", (e) => {
     const marcada = $("form-test").querySelector(`input[name="p${i}"]:checked`);
     marcarFalta(i, !marcada);
     if (marcada) puntaje += Number(marcada.value);
-    else if (!primera) primera = i;
+    else if (primera === null) primera = i;
   });
   $("aviso-faltan").classList.toggle("d-none", primera === null);
   if (primera !== null) {                           // RF-08: avisar si falta una respuesta
@@ -110,7 +107,6 @@ $("form-test").addEventListener("submit", (e) => {
   try { localStorage.setItem(CLAVE, JSON.stringify({ nivel })); } catch (err) { console.warn(err); }
   mostrarResultado({ nivel });
 });
-
 
 function enlaceContacto(c) {
   if (c.includes("@")) return `<a href="mailto:${c}">${c}</a>`;
@@ -145,7 +141,6 @@ $("btn-borrar").addEventListener("click", () => {
   try { localStorage.removeItem(CLAVE); } catch (err) { console.warn(err); }
   mostrarPagina("inicio");
 });
-
 
 mostrarPagina("inicio");
 cargarDatos();
